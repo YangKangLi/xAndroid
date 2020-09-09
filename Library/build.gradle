@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.yangkangli'
+
+android {
+    compileSdkVersion rootProject.ext.compile["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.compile["buildToolsVersion"]
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.compile["minSdkVersion"]
+        targetSdkVersion rootProject.ext.compile["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.android["AppCompat"]
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation rootProject.ext.dependencies["RxJava"]
+    implementation rootProject.ext.dependencies["RxAndroid"]
+    implementation rootProject.ext.dependencies["RxAndroidNetworking"]
+}
