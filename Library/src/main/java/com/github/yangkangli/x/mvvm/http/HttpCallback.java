@@ -5,7 +5,7 @@ public abstract class HttpCallback<T> {
     /**
      * 请求开始
      */
-    public void onStart() {
+    public void onStart(String requestTag) {
         // 子类具体实现
     }
 
@@ -14,7 +14,7 @@ public abstract class HttpCallback<T> {
      *
      * @param result
      */
-    public T doInAsync(T result) {
+    public T doInAsync(String requestTag, T result) {
         return result;
     }
 
@@ -24,7 +24,7 @@ public abstract class HttpCallback<T> {
      * @param finishedBytes
      * @param totalBytes
      */
-    public void onProgress(long finishedBytes, long totalBytes) {
+    public void onProgress(String requestTag, long finishedBytes, long totalBytes) {
 
     }
 
@@ -33,14 +33,14 @@ public abstract class HttpCallback<T> {
      *
      * @param result
      */
-    public abstract void onSuccess(T result);
+    public abstract void onSuccess(String requestTag, T result);
 
     /**
      * 服务器返回错误码
      *
      * @param failureResult
      */
-    public void onFailure(T failureResult) {
+    public void onFailure(String requestTag, T failureResult) {
         // 子类具体实现
     }
 
@@ -49,14 +49,14 @@ public abstract class HttpCallback<T> {
      *
      * @param throwable
      */
-    public void onError(Throwable throwable) {
+    public void onError(String requestTag, Throwable throwable) {
         // 子类具体实现
     }
 
     /**
      * 请求完成
      */
-    public void onComplete() {
+    public void onComplete(String requestTag) {
         // 子类具体实现
     }
 

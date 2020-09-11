@@ -1,2 +1,2 @@
-include ':Library', ':Sample'
+include ':Library', ':Sample', ':SampleBase'
 rootProject.name='xAndroid'

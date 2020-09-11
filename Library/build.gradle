@@ -37,7 +37,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation rootProject.ext.dependencies["RxJava"]
-    implementation rootProject.ext.dependencies["RxAndroid"]
-    implementation rootProject.ext.dependencies["RxAndroidNetworking"]
+    api rootProject.ext.dependencies["RxJava"]
+    api rootProject.ext.dependencies["RxAndroid"]
+    api rootProject.ext.dependencies["RxAndroidNetworking"]
+    api rootProject.ext.dependencies["ImmersionBar"]
+    api rootProject.ext.dependencies["ImmersionBar4Fragment"]
 }

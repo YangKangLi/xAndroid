@@ -16,9 +16,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://fierce-cove-29863.herokuapp.com/\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://fierce-cove-29863.herokuapp.com/\"")
         }
     }
 
@@ -32,13 +38,17 @@ dependencies {
 
     implementation rootProject.ext.android["AppCompat"]
     implementation rootProject.ext.android["ConstraintLayout"]
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation rootProject.ext.dependencies["RxJava"]
-    implementation rootProject.ext.dependencies["RxAndroid"]
-    implementation rootProject.ext.dependencies["OkHttp"]
-    implementation rootProject.ext.dependencies["OkhttpLogInterceptor"]
     implementation project(path: ':Library')
+    implementation project(path: ':SampleBase')
+
+    implementation rootProject.ext.dependencies["AndroidAutoSize"]
+
+    // 内存泄漏，只需要在主App中加入即可
+    debugImplementation rootProject.ext.dependencies["Leakcanary"]
 }

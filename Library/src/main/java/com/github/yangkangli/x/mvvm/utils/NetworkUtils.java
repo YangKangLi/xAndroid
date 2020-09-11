@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 public class NetworkUtils {
 
     private NetworkUtils() {
-        // This class is not publicly instantiable
+        throw new UnsupportedOperationException("u can't initial here");
     }
 
     public static boolean isNetworkConnected(Context context) {

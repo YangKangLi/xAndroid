@@ -43,7 +43,7 @@ public class HttpManager {
      * @param <T>
      * @return
      */
-    public <T> Disposable get(String url, Map<String, String> queryParams, Class<T> clazz, final HttpCallback<T> callback) {
+    public <T> Disposable get(String url, Map<String, String> queryParams, Class<T> clazz, final HttpCallback<T> callback, final String requesttag) {
         return Rx2AndroidNetworking
                 .get(url)
                 .addQueryParameter(queryParams)
@@ -55,7 +55,7 @@ public class HttpManager {
                     @Override
                     public T apply(T result) throws Exception {
                         if (callback != null) {
-                            return callback.doInAsync(result);
+                            return callback.doInAsync(requesttag, result);
                         }
                         return result;
                     }
@@ -65,7 +65,7 @@ public class HttpManager {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         if (callback != null) {
-                            callback.onStart();
+                            callback.onStart(requesttag);
                         }
                     }
                 })
@@ -73,21 +73,21 @@ public class HttpManager {
                     @Override
                     public void accept(T result) throws Exception {
                         if (callback != null) {
-                            callback.onSuccess(result);
+                            callback.onSuccess(requesttag, result);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (callback != null) {
-                            callback.onError(throwable);
+                            callback.onError(requesttag, throwable);
                         }
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
                         if (callback != null) {
-                            callback.onComplete();
+                            callback.onComplete(requesttag);
                         }
                     }
                 });
@@ -104,7 +104,7 @@ public class HttpManager {
      * @param <T>
      * @return
      */
-    public <T> Disposable post(String url, Map<String, String> queryParams, Map<String, String> bodyParams, Class<T> clazz, final HttpCallback<T> callback) {
+    public <T> Disposable post(String url, Map<String, String> queryParams, Map<String, String> bodyParams, Class<T> clazz, final HttpCallback<T> callback, final String requestTag) {
         return Rx2AndroidNetworking
                 .post(url)
                 .addQueryParameter(queryParams)
@@ -117,7 +117,7 @@ public class HttpManager {
                     @Override
                     public T apply(T result) throws Exception {
                         if (callback != null) {
-                            return callback.doInAsync(result);
+                            return callback.doInAsync(requestTag, result);
                         }
                         return result;
                     }
@@ -127,7 +127,7 @@ public class HttpManager {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         if (callback != null) {
-                            callback.onStart();
+                            callback.onStart(requestTag);
                         }
                     }
                 })
@@ -135,21 +135,21 @@ public class HttpManager {
                     @Override
                     public void accept(T result) throws Exception {
                         if (callback != null) {
-                            callback.onSuccess(result);
+                            callback.onSuccess(requestTag, result);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (callback != null) {
-                            callback.onError(throwable);
+                            callback.onError(requestTag, throwable);
                         }
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
                         if (callback != null) {
-                            callback.onComplete();
+                            callback.onComplete(requestTag);
                         }
                     }
                 });
@@ -164,7 +164,7 @@ public class HttpManager {
      * @param callback
      * @return
      */
-    public Disposable download(String url, String dirPath, String fileName, final HttpCallback<File> callback) {
+    public Disposable download(String url, String dirPath, String fileName, final HttpCallback<File> callback, final String requestTag) {
         return Rx2AndroidNetworking
                 .download(url, dirPath, fileName)
                 .setPriority(Priority.MEDIUM)
@@ -173,7 +173,7 @@ public class HttpManager {
                     @Override
                     public void onProgress(long finishedBytes, long totalBytes) {
                         if (callback != null) {
-                            callback.onProgress(finishedBytes, totalBytes);
+                            callback.onProgress(requestTag, finishedBytes, totalBytes);
                         }
                     }
                 })
@@ -183,7 +183,7 @@ public class HttpManager {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         if (callback != null) {
-                            callback.onStart();
+                            callback.onStart(requestTag);
                         }
                     }
                 })
@@ -191,21 +191,21 @@ public class HttpManager {
                     @Override
                     public void accept(String s) throws Exception {
                         if (callback != null) {
-                            callback.onSuccess(new File(s));
+                            callback.onSuccess(requestTag, new File(s));
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (callback != null) {
-                            callback.onError(throwable);
+                            callback.onError(requestTag, throwable);
                         }
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
                         if (callback != null) {
-                            callback.onComplete();
+                            callback.onComplete(requestTag);
                         }
                     }
                 });
@@ -223,7 +223,7 @@ public class HttpManager {
      * @param <T>
      * @return
      */
-    public <T> Disposable upload(String url, String fileKey, File file, Map<String, String> multiParams, Class<T> clazz, final HttpCallback<T> callback) {
+    public <T> Disposable upload(String url, String fileKey, File file, Map<String, String> multiParams, Class<T> clazz, final HttpCallback<T> callback, final String requestTag) {
         return Rx2AndroidNetworking
                 .upload(url)
                 .addMultipartFile(fileKey, file)
@@ -233,7 +233,7 @@ public class HttpManager {
                     @Override
                     public void onProgress(long bytesUploaded, long totalBytes) {
                         if (callback != null) {
-                            callback.onProgress(bytesUploaded, totalBytes);
+                            callback.onProgress(requestTag, bytesUploaded, totalBytes);
                         }
                     }
                 })
@@ -243,7 +243,7 @@ public class HttpManager {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         if (callback != null) {
-                            callback.onStart();
+                            callback.onStart(requestTag);
                         }
                     }
                 })
@@ -251,21 +251,21 @@ public class HttpManager {
                     @Override
                     public void accept(T t) throws Exception {
                         if (callback != null) {
-                            callback.onSuccess(t);
+                            callback.onSuccess(requestTag, t);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (callback != null) {
-                            callback.onError(throwable);
+                            callback.onError(requestTag, throwable);
                         }
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
                         if (callback != null) {
-                            callback.onComplete();
+                            callback.onComplete(requestTag);
                         }
                     }
                 });

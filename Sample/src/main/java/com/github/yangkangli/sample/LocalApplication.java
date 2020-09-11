@@ -9,4 +9,10 @@ public class LocalApplication extends BaseApplication {
     protected OkHttpClient initOKHttpClient() {
         return null;
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setApplication(this);
+    }
 }

@@ -1,4 +1,4 @@
-package com.github.yangkangli.sample.ui;
+package com.github.yangkangli.sample.ui.main;
 
 import android.app.Application;
 
@@ -16,5 +16,9 @@ public class MainViewModel extends BaseViewModel<IMainView> {
      */
     public MainViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public void onFullScreenClicked() {
+        getView().setMainFullScreen();
     }
 }

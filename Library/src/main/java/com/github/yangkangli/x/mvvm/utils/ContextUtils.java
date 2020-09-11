@@ -9,6 +9,10 @@ public class ContextUtils {
      */
     private static Application sApplication;
 
+    private ContextUtils() {
+        throw new UnsupportedOperationException("u can't initial here");
+    }
+
     /**
      * 初始化Application对象
      *
