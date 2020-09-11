@@ -62,7 +62,7 @@ public class DataManager {
      * @return
      */
     public boolean isUserLogin() {
-        return false;
+        return true;
     }
 
     /**

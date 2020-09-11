@@ -9,7 +9,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.utils.NetworkUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -37,7 +39,6 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, ViewModel ex
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //immersionBar = ImmersionBar.with(this);
         super.onCreate(savedInstanceState);
         performDataBinding();
     }
@@ -52,18 +53,15 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, ViewModel ex
      *
      * @return
      */
-    protected abstract ViewModel createViewModel();
-
-    protected abstract void initViewModel(ViewModel viewModel);
+    protected abstract ViewModel initViewModel();
 
     /**
      * 执行数据绑定
      */
     private void performDataBinding() {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
-        viewModel = createViewModel();
+        viewModel = initViewModel();
         if (viewModel != null) {
-            initViewModel(viewModel);
             binding.setVariable(getBindingVariable(), viewModel);
             binding.executePendingBindings();
             getLifecycle().addObserver(viewModel);
@@ -74,11 +72,37 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, ViewModel ex
         return binding;
     }
 
+    protected ViewModel getViewModel() {
+        return viewModel;
+    }
+
 
     // ============================================================================================
     // 辅助方法
     // ============================================================================================
 
+
+    /**
+     * 创建简单的ViewModel（没有定义自己的Factory的）
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    protected <T extends BaseViewModel, V extends IBaseView> T createSimpleViewModel(Class<T> clazz, V view) {
+        T viewModel = new ViewModelProvider(this, newCommonFactory()).get(clazz);
+        viewModel.setView(view);
+        return viewModel;
+    }
+
+    /**
+     * 获得通用的AndroidViewModelFactory对象
+     *
+     * @return
+     */
+    private ViewModelProvider.AndroidViewModelFactory newCommonFactory() {
+        return new ViewModelProvider.AndroidViewModelFactory(ContextUtils.getApplication());
+    }
 
     /**
      * 判断是否授权

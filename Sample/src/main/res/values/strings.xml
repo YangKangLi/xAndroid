@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Sample</string>
+
+
+    <!-- 引导界面 -->
+    <string name="activity_guide_skip">跳过</string>
+    <string name="activity_guide_entry_now">立即体验</string>
+
+
 </resources>

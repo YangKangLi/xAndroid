@@ -70,7 +70,7 @@ public class SplashViewModel extends BaseViewModel<ISplashView> {
                 .map(new Function<Integer, Object>() {
                     @Override
                     public Object apply(Integer integer) throws Exception {
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
                         return new Object();
                     }
                 })

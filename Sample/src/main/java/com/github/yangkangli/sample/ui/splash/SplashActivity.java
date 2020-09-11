@@ -1,16 +1,17 @@
 package com.github.yangkangli.sample.ui.splash;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.github.yangkangli.sample.BR;
 import com.github.yangkangli.sample.R;
 import com.github.yangkangli.sample.databinding.ActivitySplashBinding;
+import com.github.yangkangli.sample.ui.guide.GuideActivity;
+import com.github.yangkangli.sample.ui.login.LoginActivity;
 import com.github.yangkangli.x.mvvm.BaseActivity;
-import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -33,14 +34,15 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     }
 
     @Override
-    protected SplashViewModel createViewModel() {
-        return new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(ContextUtils.getApplication())).get(SplashViewModel.class);
+    protected SplashViewModel initViewModel() {
+        return createSimpleViewModel(SplashViewModel.class, this);
     }
 
-    @Override
-    protected void initViewModel(SplashViewModel viewModel) {
-        viewModel.setView(this);
-    }
+
+    // =============================================================================================
+    // ISplashView接口实现方法
+    // =============================================================================================
+
 
     @Override
     public void showUserAgreementDialog() {
@@ -49,16 +51,19 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void entryGuideActivity() {
-        Log.d("Adam", "进入引导界面");
+        GuideActivity.openActivity();
+        finish();
     }
 
     @Override
     public void entryLoginActivity() {
-        Log.d("Adam", "进入登录界面");
+        LoginActivity.openActivity();
+        finish();
     }
 
     @Override
     public void entryMainActivity() {
-        Log.d("Adam", "进入主界面");
+        ARouter.getInstance().build(RouterPathActivity.Sample.PAGE_MAIN).navigation();
+        finish();
     }
 }

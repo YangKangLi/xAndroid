@@ -15,6 +15,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        // For ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -42,4 +49,8 @@ dependencies {
     api rootProject.ext.dependencies["RxAndroidNetworking"]
     api rootProject.ext.dependencies["ImmersionBar"]
     api rootProject.ext.dependencies["ImmersionBar4Fragment"]
+
+    // ARouter
+    api rootProject.ext.dependencies["ARouter_Api"]
+    annotationProcessor rootProject.ext.dependencies["ARouter_Compiler"]
 }

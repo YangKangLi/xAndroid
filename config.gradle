@@ -32,5 +32,14 @@ ext {
             ImmersionBar4Fragment: 'com.gyf.immersionbar:immersionbar-components:3.0.0',
             // 今日头条屏幕适配方案终极版 AndroidAutoSize
             AndroidAutoSize      : "me.jessyan:autosize:1.2.1",
+            // ARouter库：
+            // ARouter_Api需要添加到Base模块中，且已api的方式，这种方式集成的话，各个业务模块中就不需要添加依赖了
+            // ARouter_Compiler需要添加在宿主App模块以及各个业务模块中，且已annotationProcessor的方式
+            ARouter_Api          : "com.alibaba:arouter-api:1.5.0",
+            ARouter_Compiler     : "com.alibaba:arouter-compiler:1.2.2",
+            // 广告轮播库
+            ConvenientBanner     : 'com.bigkoo:convenientbanner:2.1.5',
+            // 图片加载库
+            Glide                : 'com.github.bumptech.glide:glide:4.11.0',
     ]
 }

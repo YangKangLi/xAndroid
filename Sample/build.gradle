@@ -13,6 +13,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // For ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -38,6 +45,7 @@ dependencies {
 
     implementation rootProject.ext.android["AppCompat"]
     implementation rootProject.ext.android["ConstraintLayout"]
+    implementation rootProject.ext.android["RecyclerView"]
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.12'
@@ -48,7 +56,14 @@ dependencies {
     implementation project(path: ':SampleBase')
 
     implementation rootProject.ext.dependencies["AndroidAutoSize"]
+    implementation rootProject.ext.dependencies["ConvenientBanner"]
+    implementation rootProject.ext.dependencies["Glide"]
 
     // 内存泄漏，只需要在主App中加入即可
     debugImplementation rootProject.ext.dependencies["Leakcanary"]
+
+
+    // ARouter-Compiler
+    annotationProcessor rootProject.ext.dependencies["ARouter_Compiler"]
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }

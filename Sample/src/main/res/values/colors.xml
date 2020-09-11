@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlack">#33000000</color>
+
+
+    <!-- 主背景色 -->
+    <color name="main_bg_color">#F7F7F7</color>
 </resources>
