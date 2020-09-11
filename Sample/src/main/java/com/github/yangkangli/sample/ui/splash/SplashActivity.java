@@ -2,20 +2,18 @@ package com.github.yangkangli.sample.ui.splash;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.github.yangkangli.sample.BR;
 import com.github.yangkangli.sample.R;
 import com.github.yangkangli.sample.databinding.ActivitySplashBinding;
 import com.github.yangkangli.sample.ui.guide.GuideActivity;
 import com.github.yangkangli.sample.ui.login.LoginActivity;
-import com.github.yangkangli.x.mvvm.BaseActivity;
+import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 
-public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> implements ISplashView {
+public class SplashActivity extends XActivity<ActivitySplashBinding, SplashViewModel> implements ISplashView {
 
     @Override
     protected int getLayoutId() {

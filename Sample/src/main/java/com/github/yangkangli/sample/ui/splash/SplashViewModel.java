@@ -10,7 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.github.yangkangli.sample.data.DataManager;
 import com.github.yangkangli.sample.model.UserAgreementBean;
-import com.github.yangkangli.x.mvvm.BaseViewModel;
+import com.github.yangkangli.x.mvvm.XViewModel;
 import com.github.yangkangli.x.mvvm.adapter.ObserverAdapter;
 
 import io.reactivex.Observable;
@@ -20,7 +20,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("CheckResult")
-public class SplashViewModel extends BaseViewModel<ISplashView> {
+public class SplashViewModel extends XViewModel<ISplashView> {
 
     /**
      * 构造方法

@@ -15,9 +15,9 @@ import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.utils.NetworkUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
-public abstract class BaseActivity<Binding extends ViewDataBinding, ViewModel extends BaseViewModel> extends AppCompatActivity {
+public abstract class XActivity<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends AppCompatActivity {
 
-    private static final String TAG = "BaseActivity";
+    private static final String TAG = "XActivity";
 
     private Binding binding;
 
@@ -89,7 +89,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, ViewModel ex
      * @param <T>
      * @return
      */
-    protected <T extends BaseViewModel, V extends IBaseView> T createSimpleViewModel(Class<T> clazz, V view) {
+    protected <T extends XViewModel, V extends IXView> T createSimpleViewModel(Class<T> clazz, V view) {
         T viewModel = new ViewModelProvider(this, newCommonFactory()).get(clazz);
         viewModel.setView(view);
         return viewModel;

@@ -8,7 +8,7 @@ import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 
 import okhttp3.OkHttpClient;
 
-public abstract class BaseApplication extends Application {
+public abstract class XApplication extends Application {
 
     private static final boolean IS_ROUTER_DEBUG = true;
 

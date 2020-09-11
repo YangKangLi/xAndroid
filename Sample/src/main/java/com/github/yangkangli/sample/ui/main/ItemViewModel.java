@@ -10,9 +10,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.yangkangli.x.mvvm.BaseViewModel;
+import com.github.yangkangli.x.mvvm.XViewModel;
 
-public class ItemViewModel extends BaseViewModel {
+public class ItemViewModel extends XViewModel {
 
     private boolean isDataLoaded = false;
 

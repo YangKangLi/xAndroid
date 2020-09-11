@@ -1,8 +1,8 @@
 package com.github.yangkangli.sample.ui.guide;
 
-import com.github.yangkangli.x.mvvm.IBaseView;
+import com.github.yangkangli.x.mvvm.IXView;
 
-public interface IGuideView extends IBaseView {
+public interface IGuideView extends IXView {
 
     /**
      * 打开主界面

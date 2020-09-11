@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 import io.reactivex.disposables.CompositeDisposable;
 
 
-public class BaseViewModel<View extends IBaseView> extends AndroidViewModel implements LifecycleObserver {
+public class XViewModel<View extends IXView> extends AndroidViewModel implements LifecycleObserver {
 
     /**
      * IBaseView引用，用于在ViewModel中调用Activity，Fragment中的方法
@@ -28,7 +28,7 @@ public class BaseViewModel<View extends IBaseView> extends AndroidViewModel impl
      *
      * @param application
      */
-    public BaseViewModel(@NonNull Application application) {
+    public XViewModel(@NonNull Application application) {
         super(application);
         compositeDisposable = new CompositeDisposable();
     }

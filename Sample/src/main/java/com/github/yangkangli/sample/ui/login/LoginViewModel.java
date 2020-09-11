@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.github.yangkangli.x.mvvm.BaseViewModel;
+import com.github.yangkangli.x.mvvm.XViewModel;
 
-public class LoginViewModel extends BaseViewModel<ILoginView> {
+public class LoginViewModel extends XViewModel<ILoginView> {
 
 
     /**

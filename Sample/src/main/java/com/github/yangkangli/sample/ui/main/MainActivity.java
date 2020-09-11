@@ -1,6 +1,8 @@
 package com.github.yangkangli.sample.ui.main;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,16 +15,17 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.github.yangkangli.sample.BR;
 import com.github.yangkangli.sample.R;
 import com.github.yangkangli.sample.databinding.ActivityMainBinding;
-import com.github.yangkangli.x.mvvm.BaseActivity;
-import com.github.yangkangli.x.mvvm.BaseFragment;
+import com.github.yangkangli.x.mvvm.XActivity;
+import com.github.yangkangli.x.mvvm.XFragment;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialog;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Route(path = RouterPathActivity.Sample.PAGE_MAIN)
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements IMainView {
+public class MainActivity extends XActivity<ActivityMainBinding, MainViewModel> implements IMainView {
 
 
     private ViewPagerAdapter viewPagerAdapter;
@@ -54,8 +57,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         setStatusBarVisible(false);
     }
 
-    private List<BaseFragment> generateFragments() {
-        List<BaseFragment> fragments = new LinkedList<>();
+    private List<XFragment> generateFragments() {
+        List<XFragment> fragments = new LinkedList<>();
         fragments.add(FragmentItem.newInstance("第一个Fragment"));
         fragments.add(FragmentItem.newInstance("第二个Fragment"));
         fragments.add(FragmentItem.newInstance("第三个Fragment"));
@@ -72,16 +75,44 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     public void setMainFullScreen() {
-        setStatusBarVisible(true);
+//        new XBaseDialog<>() {
+//            @Override
+//            protected int getLayoutId() {
+//                return 0;
+//            }
+//
+//            @Override
+//            protected int getBindingVariable() {
+//                return 0;
+//            }
+//
+//            @Override
+//            protected XViewModel initViewModel() {
+//                return null;
+//            }
+//
+//            @Override
+//            protected void initView(ViewDataBinding binding) {
+//
+//            }
+//        }
+//                .setSize(200, 200)
+//                .show(getSupportFragmentManager());
+
+        new XDialog<>().setLayoutId(R.layout.dialog_alert_layout).setBindingVariable(com.github.yangkangli.x.mvvm.BR.viewModel)
+                .setSize(ViewGroup.LayoutParams.MATCH_PARENT, 100)
+                .setGravity(Gravity.BOTTOM)
+                .setOutCancel(true)
+                .show(getSupportFragmentManager());
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
-        private List<BaseFragment> fragments;
+        private List<XFragment> fragments;
 
 
-        public ViewPagerAdapter(@NonNull FragmentManager fm, List<BaseFragment> fragments) {
+        public ViewPagerAdapter(@NonNull FragmentManager fm, List<XFragment> fragments) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
             this.fragments = fragments;
         }

@@ -9,11 +9,11 @@ import com.github.yangkangli.sample.BR;
 import com.github.yangkangli.sample.R;
 import com.github.yangkangli.sample.databinding.ActivityLoginBinding;
 import com.github.yangkangli.sample.ui.main.MainActivity;
-import com.github.yangkangli.x.mvvm.BaseActivity;
+import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 
 @Route(path = RouterPathActivity.Sample.PAGE_LOGIN)
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> implements ILoginView {
+public class LoginActivity extends XActivity<ActivityLoginBinding, LoginViewModel> implements ILoginView {
 
     /**
      * 打开Activity

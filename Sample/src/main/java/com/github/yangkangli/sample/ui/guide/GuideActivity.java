@@ -20,7 +20,7 @@ import com.github.yangkangli.sample.R;
 import com.github.yangkangli.sample.databinding.ActivityGuideBinding;
 import com.github.yangkangli.sample.ui.login.LoginActivity;
 import com.github.yangkangli.sample.ui.main.MainActivity;
-import com.github.yangkangli.x.mvvm.BaseActivity;
+import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.utils.UIUtils;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route(path = RouterPathActivity.Sample.PAGE_GUIDE)
-public class GuideActivity extends BaseActivity<ActivityGuideBinding, GuideViewModel> implements IGuideView, OnPageChangeListener {
+public class GuideActivity extends XActivity<ActivityGuideBinding, GuideViewModel> implements IGuideView, OnPageChangeListener {
 
     /**
      * 打开Activity

@@ -1,8 +1,8 @@
 package com.github.yangkangli.sample.ui.splash;
 
-import com.github.yangkangli.x.mvvm.IBaseView;
+import com.github.yangkangli.x.mvvm.IXView;
 
-public interface ISplashView extends IBaseView {
+public interface ISplashView extends IXView {
 
     /**
      * 显示用户协议对话框

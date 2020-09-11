@@ -12,22 +12,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-import com.gyf.immersionbar.BarHide;
-import com.gyf.immersionbar.ImmersionBar;
+public abstract class XFragment<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends Fragment implements IXView {
 
-public abstract class BaseFragment<Binding extends ViewDataBinding, ViewModel extends BaseViewModel> extends Fragment implements IBaseView {
+    private static final String TAG = "XFragment";
 
-    private static final String TAG = "BaseFragment";
-
-    private BaseActivity activity;
-
-    private View rootView;
+    private XActivity activity;
 
     private Binding binding;
 
     private ViewModel viewModel;
-
-    //private ImmersionBar immersionBar;
 
     /**
      * 获得布局资源ID
@@ -46,8 +39,8 @@ public abstract class BaseFragment<Binding extends ViewDataBinding, ViewModel ex
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof BaseActivity) {
-            BaseActivity activity = (BaseActivity) context;
+        if (context instanceof XActivity) {
+            XActivity activity = (XActivity) context;
             this.activity = activity;
         }
     }
@@ -61,8 +54,7 @@ public abstract class BaseFragment<Binding extends ViewDataBinding, ViewModel ex
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
-        rootView = binding.getRoot();
-        return rootView;
+        return binding.getRoot();
     }
 
     @Override
@@ -87,7 +79,6 @@ public abstract class BaseFragment<Binding extends ViewDataBinding, ViewModel ex
     public void onDestroyView() {
         Log.d(TAG, "onDestroyView");
         super.onDestroyView();
-        rootView = null;
         binding.unbind();
         binding = null;
         if (viewModel != null) {
@@ -107,20 +98,11 @@ public abstract class BaseFragment<Binding extends ViewDataBinding, ViewModel ex
      *
      * @return
      */
-    protected BaseActivity getBaseActivity() {
+    protected XActivity getBaseActivity() {
         return activity;
     }
 
     protected ViewModel getViewModel() {
         return viewModel;
-    }
-
-    /**
-     * 设置状态栏
-     *
-     * @param fillInStatusBar 是否将布局的内容填充到状态栏
-     */
-    protected void setStatusBar(boolean fillInStatusBar) {
-        //immersionBar.statusBarColor(android.R.color.transparent).fitsSystemWindows(!fillInStatusBar).init();
     }
 }

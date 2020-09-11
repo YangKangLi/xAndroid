@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 
 import com.github.yangkangli.sample.data.DataManager;
-import com.github.yangkangli.x.mvvm.BaseViewModel;
+import com.github.yangkangli.x.mvvm.XViewModel;
 
-public class GuideViewModel extends BaseViewModel<IGuideView> {
+public class GuideViewModel extends XViewModel<IGuideView> {
 
     // 是否显示跳过，默认显示
     private ObservableField<Boolean> showSkip = new ObservableField<>(true);

@@ -1,8 +1,8 @@
 package com.github.yangkangli.sample.ui.login;
 
-import com.github.yangkangli.x.mvvm.IBaseView;
+import com.github.yangkangli.x.mvvm.IXView;
 
-public interface ILoginView extends IBaseView {
+public interface ILoginView extends IXView {
 
 
     /**

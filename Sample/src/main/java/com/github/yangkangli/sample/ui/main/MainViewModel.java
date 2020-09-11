@@ -4,9 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.github.yangkangli.x.mvvm.BaseViewModel;
+import com.github.yangkangli.x.mvvm.XViewModel;
 
-public class MainViewModel extends BaseViewModel<IMainView> {
+public class MainViewModel extends XViewModel<IMainView> {
 
 
     /**
