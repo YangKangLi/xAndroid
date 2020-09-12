@@ -12,7 +12,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-public abstract class XFragment<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends Fragment implements IXView {
+import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.utils.UIUtils;
+
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public abstract class XFragment<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends Fragment implements CustomAdapt {
 
     private static final String TAG = "XFragment";
 
@@ -104,5 +109,21 @@ public abstract class XFragment<Binding extends ViewDataBinding, ViewModel exten
 
     protected ViewModel getViewModel() {
         return viewModel;
+    }
+
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return !UIUtils.isScreenLandscape();
+    }
+
+    @Override
+    public float getSizeInDp() {
+//        if (isBaseOnWidth()) {
+//            return ContextUtils.getApplication().getDesignWidth();
+//        }
+//        return ContextUtils.getApplication().getDesignHeight();
+
+        return ContextUtils.getApplication().getDesignWidth();
     }
 }

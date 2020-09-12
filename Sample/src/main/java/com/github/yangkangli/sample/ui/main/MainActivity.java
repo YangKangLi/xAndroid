@@ -1,8 +1,11 @@
 package com.github.yangkangli.sample.ui.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +21,14 @@ import com.github.yangkangli.sample.databinding.ActivityMainBinding;
 import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.mvvm.XFragment;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.utils.UIUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XAlertDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XConfirmDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XLoadingDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XProgressDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewConvertListener;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 import com.github.yangkangli.x.mvvm.widgets.dialog.XDialog;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 
@@ -73,37 +84,13 @@ public class MainActivity extends XActivity<ActivityMainBinding, MainViewModel> 
         return mainViewModel;
     }
 
+
     @Override
     public void setMainFullScreen() {
-//        new XBaseDialog<>() {
-//            @Override
-//            protected int getLayoutId() {
-//                return 0;
-//            }
-//
-//            @Override
-//            protected int getBindingVariable() {
-//                return 0;
-//            }
-//
-//            @Override
-//            protected XViewModel initViewModel() {
-//                return null;
-//            }
-//
-//            @Override
-//            protected void initView(ViewDataBinding binding) {
-//
-//            }
-//        }
-//                .setSize(200, 200)
-//                .show(getSupportFragmentManager());
 
-        new XDialog<>().setLayoutId(R.layout.dialog_alert_layout).setBindingVariable(com.github.yangkangli.x.mvvm.BR.viewModel)
-                .setSize(ViewGroup.LayoutParams.MATCH_PARENT, 100)
-                .setGravity(Gravity.BOTTOM)
-                .setOutCancel(true)
-                .show(getSupportFragmentManager());
+        XProgressDialog.newInstance().setWidth(375).show(getSupportFragmentManager());
+
+
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {

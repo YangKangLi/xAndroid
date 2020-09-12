@@ -16,9 +16,15 @@ public class LocalApplication extends XApplication {
     public void onCreate() {
         super.onCreate();
         setApplication(this);
+    }
 
+    @Override
+    protected int initDesignWidth() {
+        return 375;
+    }
 
-        AutoSizeConfig.getInstance().setCustomFragment(true);
-        AutoSize.initCompatMultiProcess(this);
+    @Override
+    protected int initDesignHeight() {
+        return 667;
     }
 }

@@ -4,12 +4,14 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.TextView;
 
 public class UIUtils {
 
     public static final int WIDTH_DESIGNED_WIDTH_DP = 375;
     public static final int WIDTH_DESIGNED_HEIGHT_DP = 667;
+
 
     /**
      * 设置DrawableTop的尺寸
@@ -39,7 +41,7 @@ public class UIUtils {
      * @return
      */
     public static int dp2px(int dp) {
-        return (int) (Resources.getSystem().getDisplayMetrics().density * dp);
+        return (int) (ContextUtils.getApplication().getResources().getDisplayMetrics().density * dp );
     }
 
     /**

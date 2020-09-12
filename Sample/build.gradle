@@ -55,7 +55,7 @@ dependencies {
     implementation project(path: ':Library')
     implementation project(path: ':SampleBase')
 
-    implementation rootProject.ext.dependencies["AndroidAutoSize"]
+
     implementation rootProject.ext.dependencies["ConvenientBanner"]
     implementation rootProject.ext.dependencies["Glide"]
 

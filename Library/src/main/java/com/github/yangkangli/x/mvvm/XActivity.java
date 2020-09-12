@@ -3,6 +3,7 @@ package com.github.yangkangli.x.mvvm;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
@@ -13,9 +14,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.utils.NetworkUtils;
+import com.github.yangkangli.x.mvvm.utils.UIUtils;
 import com.gyf.immersionbar.ImmersionBar;
 
-public abstract class XActivity<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends AppCompatActivity {
+import me.jessyan.autosize.internal.CustomAdapt;
+
+public abstract class XActivity<Binding extends ViewDataBinding, ViewModel extends XViewModel> extends AppCompatActivity implements CustomAdapt {
 
     private static final String TAG = "XActivity";
 
@@ -76,6 +80,20 @@ public abstract class XActivity<Binding extends ViewDataBinding, ViewModel exten
         return viewModel;
     }
 
+
+    @Override
+    public boolean isBaseOnWidth() {
+        return !UIUtils.isScreenLandscape();
+    }
+
+    @Override
+    public float getSizeInDp() {
+//        if (isBaseOnWidth()) {
+//            return ContextUtils.getApplication().getDesignWidth();
+//        }
+//        return ContextUtils.getApplication().getDesignHeight();
+        return ContextUtils.getApplication().getDesignWidth();
+    }
 
     // ============================================================================================
     // 辅助方法

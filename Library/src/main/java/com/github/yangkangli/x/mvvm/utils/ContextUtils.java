@@ -2,12 +2,14 @@ package com.github.yangkangli.x.mvvm.utils;
 
 import android.app.Application;
 
+import com.github.yangkangli.x.mvvm.XApplication;
+
 public class ContextUtils {
 
     /**
      * Application
      */
-    private static Application sApplication;
+    private static XApplication sApplication;
 
     private ContextUtils() {
         throw new UnsupportedOperationException("u can't initial here");
@@ -18,7 +20,7 @@ public class ContextUtils {
      *
      * @param application
      */
-    public static void init(Application application) {
+    public static void init(XApplication application) {
         ContextUtils.sApplication = application;
     }
 
@@ -27,7 +29,7 @@ public class ContextUtils {
      *
      * @return
      */
-    public static Application getApplication() {
+    public static XApplication getApplication() {
         if (ContextUtils.sApplication != null) {
             return ContextUtils.sApplication;
         }

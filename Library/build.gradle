@@ -40,9 +40,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation rootProject.ext.android["AppCompat"]
+    implementation rootProject.ext.android["CardView"]
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    api rootProject.ext.dependencies["AndroidAutoSize"]
 
     api rootProject.ext.dependencies["RxJava"]
     api rootProject.ext.dependencies["RxAndroid"]
