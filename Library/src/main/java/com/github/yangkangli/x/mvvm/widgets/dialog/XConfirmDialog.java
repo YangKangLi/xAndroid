@@ -6,49 +6,85 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.github.yangkangli.x.mvvm.R;
+import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 
 public class XConfirmDialog extends XBaseDialog {
 
-    private static final String ARGS_TITLE = "args_title";
-    private static final String ARGS_CONTENT = "args_content";
-    private static final String ARGS_POSITIVE_TEXT = "args_positive_text";
-    private static final String ARGS_NEGATIVE_TEXT = "args_negative_text";
-
     private String title;
     private String content;
     private String positiveText;
-    private String negativeText;
-
     private OnClickListener positiveListener;
+    private String negativeText;
     private OnClickListener negativeListener;
 
 
-    public static XConfirmDialog newInstance(String title, String content, String positiveText, String negativeText) {
-        Bundle args = new Bundle();
-        args.putString(ARGS_TITLE, title);
-        args.putString(ARGS_CONTENT, content);
-        args.putString(ARGS_POSITIVE_TEXT, positiveText);
-        args.putString(ARGS_NEGATIVE_TEXT, negativeText);
-        XConfirmDialog dialog = new XConfirmDialog();
-        dialog.setArguments(args);
-        return dialog;
+    public static XConfirmDialog init() {
+        return new XConfirmDialog();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        title = getArguments().getString(ARGS_TITLE);
-        content = getArguments().getString(ARGS_CONTENT);
-        positiveText = getArguments().getString(ARGS_POSITIVE_TEXT);
-        negativeText = getArguments().getString(ARGS_NEGATIVE_TEXT);
+    public XConfirmDialog() {
+        this.title = ContextUtils.getApplication().getString(R.string.dialog_default_title);
+        this.positiveText = ContextUtils.getApplication().getString(R.string.dialog_default_positive_text);
+        this.negativeText = ContextUtils.getApplication().getString(R.string.dialog_default_negative_text);
     }
 
     @Override
     protected int intLayoutId() {
         return R.layout.dialog_confirm_layout;
     }
+
+
+    /**
+     * 设置标题
+     *
+     * @param title
+     * @return
+     */
+    public XConfirmDialog setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+
+    /**
+     * 设置内容
+     *
+     * @param content
+     * @return
+     */
+    public XConfirmDialog setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    /**
+     * 设置确认按钮
+     *
+     * @param positiveText
+     * @param onClickListener
+     * @return
+     */
+    public XConfirmDialog setPositive(String positiveText, XBaseDialog.OnClickListener onClickListener) {
+        this.positiveText = positiveText;
+        this.positiveListener = onClickListener;
+        return this;
+    }
+
+    /**
+     * 设置取消按钮
+     *
+     * @param negativeText
+     * @param onClickListener
+     * @return
+     */
+    public XConfirmDialog setNegative(String negativeText, XBaseDialog.OnClickListener onClickListener) {
+        this.negativeText = negativeText;
+        this.negativeListener = onClickListener;
+        return this;
+    }
+
 
     @Override
     public void convertView(ViewHolder holder, XBaseDialog dialog) {
@@ -62,6 +98,8 @@ public class XConfirmDialog extends XBaseDialog {
             public void onClick(View v) {
                 if (positiveListener != null) {
                     positiveListener.onClick(XConfirmDialog.this, v.getId());
+                } else {
+                    dismiss();
                 }
             }
         });
@@ -71,18 +109,10 @@ public class XConfirmDialog extends XBaseDialog {
             public void onClick(View v) {
                 if (negativeListener != null) {
                     negativeListener.onClick(XConfirmDialog.this, v.getId());
+                } else {
+                    dismiss();
                 }
             }
         });
-    }
-
-    public XConfirmDialog setPositiveListener(OnClickListener onClickListener) {
-        this.positiveListener = onClickListener;
-        return this;
-    }
-
-    public XConfirmDialog setNegativeListener(OnClickListener onClickListener) {
-        this.negativeListener = onClickListener;
-        return this;
     }
 }

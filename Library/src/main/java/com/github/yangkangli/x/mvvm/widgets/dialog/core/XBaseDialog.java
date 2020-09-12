@@ -138,7 +138,12 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
                 default:
                     Log.d("Adam", "UIUtils.dp2px(" + width + ") = " + UIUtils.dp2px(width));
                     Log.d("Adam", "UIUtils.getScreenWidth() = " + UIUtils.getScreenWidth());
-                    lp.width = UIUtils.dp2px(width);
+                    int dp2px = UIUtils.dp2px(width);
+                    int screenWidth = UIUtils.getScreenWidth();
+                    if (dp2px > screenWidth) {
+                        dp2px = screenWidth;
+                    }
+                    lp.width = dp2px;
                     break;
             }
 
@@ -151,7 +156,12 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
                     lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                     break;
                 default:
-                    lp.height = UIUtils.dp2px(height);
+                    int dp2px = UIUtils.dp2px(height);
+                    int screenHeight = UIUtils.getScreenHeight();
+                    if (dp2px > screenHeight) {
+                        dp2px = screenHeight;
+                    }
+                    lp.height = dp2px;
                     break;
             }
 
@@ -193,10 +203,6 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
 
     @Override
     public float getSizeInDp() {
-//        if (isBaseOnWidth()) {
-//            return ContextUtils.getApplication().getDesignWidth();
-//        }
-//        return ContextUtils.getApplication().getDesignHeight();
         return ContextUtils.getApplication().getDesignWidth();
     }
 
