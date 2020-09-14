@@ -4,11 +4,11 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentManager;
 
-import com.github.yangkangli.x.mvvm.R;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
+import com.github.yangkangli.x.sample.base.R;
 
 public class XConfirmDialog extends XBaseDialog {
 

@@ -2,6 +2,9 @@ package com.github.yangkangli.sample.ui.main;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,10 @@ import com.github.yangkangli.sample.databinding.ActivityMainBinding;
 import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.mvvm.XFragment;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewConvertListener;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
+import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 import com.github.yangkangli.x.sample.base.widgets.dialog.XAlertDialog;
 import com.github.yangkangli.x.sample.base.widgets.dialog.XConfirmDialog;
 import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
@@ -103,19 +110,44 @@ public class MainActivity extends XActivity<ActivityMainBinding, MainViewModel> 
                 .setContent("我是警告对话框的内容")
                 .requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
 
-        final XLoadingDialog loadingDialog = XLoadingDialog.init().setContent("请稍等").requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
+       // final XLoadingDialog loadingDialog = XLoadingDialog.init().setContent("请稍等").requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
 
         XConfirmDialog.init().setTitle("确认对话框")
                 .setContent("我是确认对话框的内容")
 
                 .requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
 
-        new Handler(getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadingDialog.dismiss();
-            }
-        }, 1000 * 10);
+
+        XBaseDialog baseDialog = XDialog.init()
+                .setLayout(R.layout.dialog_alert_layout)
+                .setConvertListener(new ViewConvertListener() {
+                    @Override
+                    public void convertView(ViewHolder holder, final XBaseDialog dialog) {
+                        Log.d("Adam", "XDialog -> my convertView");
+                        holder.setText(R.id.tv_content, "啊实打实打算");
+                        holder.setOnClickListener(R.id.btn_positive, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setHeight(300)
+                .setOutCancel(true)
+                .setHMargin(30);
+
+        XDialogManager.getInstance().requestShow(baseDialog, getSupportFragmentManager());
+
+//        new Handler(getMainLooper()).postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                loadingDialog.dismiss();
+//            }
+//        }, 1000 * 5);
+
+
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {

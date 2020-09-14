@@ -1,6 +1,7 @@
 package com.github.yangkangli.x.mvvm.widgets.dialog;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -9,19 +10,23 @@ import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewConvertListener;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 
-import java.lang.ref.WeakReference;
-
 public class XDialog extends XBaseDialog {
 
     private static final String CONVERT_LISTENER = "convert_listener";
 
-    private WeakReference<ViewConvertListener> convertListener;
+    private ViewConvertListener convertListener;
+
+
+    public static XDialog init() {
+        return new XDialog();
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            convertListener = new WeakReference<>((ViewConvertListener) savedInstanceState.getParcelable(CONVERT_LISTENER));
+            convertListener = savedInstanceState.getParcelable(CONVERT_LISTENER);
         }
     }
 
@@ -33,7 +38,7 @@ public class XDialog extends XBaseDialog {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(CONVERT_LISTENER, convertListener.get());
+        outState.putParcelable(CONVERT_LISTENER, convertListener);
     }
 
     @Override
@@ -42,11 +47,17 @@ public class XDialog extends XBaseDialog {
     }
 
     @Override
-    public void convertView(ViewHolder holder, XBaseDialog dialog) {
-        ViewConvertListener listener = convertListener.get();
+    public void convertView(final ViewHolder holder, final XBaseDialog dialog) {
+        ViewConvertListener listener = convertListener;
         if (listener != null) {
             listener.convertView(holder, dialog);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        convertListener = null;
     }
 
     /**
@@ -56,7 +67,7 @@ public class XDialog extends XBaseDialog {
      * @return
      */
     public XDialog setConvertListener(ViewConvertListener convertListener) {
-        this.convertListener = new WeakReference<>(convertListener);
+        this.convertListener = convertListener;
         return this;
     }
 
