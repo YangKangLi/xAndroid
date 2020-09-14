@@ -1,11 +1,7 @@
 package com.github.yangkangli.sample.ui.main;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,15 +17,10 @@ import com.github.yangkangli.sample.databinding.ActivityMainBinding;
 import com.github.yangkangli.x.mvvm.XActivity;
 import com.github.yangkangli.x.mvvm.XFragment;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
-import com.github.yangkangli.x.mvvm.utils.UIUtils;
-import com.github.yangkangli.x.mvvm.widgets.dialog.XAlertDialog;
-import com.github.yangkangli.x.mvvm.widgets.dialog.XConfirmDialog;
-import com.github.yangkangli.x.mvvm.widgets.dialog.XLoadingDialog;
-import com.github.yangkangli.x.mvvm.widgets.dialog.XProgressDialog;
-import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewConvertListener;
-import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
-import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
-import com.github.yangkangli.x.mvvm.widgets.dialog.XDialog;
+import com.github.yangkangli.x.sample.base.widgets.dialog.XAlertDialog;
+import com.github.yangkangli.x.sample.base.widgets.dialog.XConfirmDialog;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
+import com.github.yangkangli.x.sample.base.widgets.dialog.XLoadingDialog;
 import com.github.yangkangli.x.sample.base.router.RouterPathActivity;
 
 import java.util.LinkedList;
@@ -88,28 +79,43 @@ public class MainActivity extends XActivity<ActivityMainBinding, MainViewModel> 
     @Override
     public void setMainFullScreen() {
 
-        XAlertDialog.init()
-                .setContent("我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
-                        "我是内容我是内容我是内容我是内容我是内容我是内容")
-                .setWidth(300)
-                .setHeight(450)
-                .setOutCancel(false)
-                .show(getSupportFragmentManager());
+//        XAlertDialog.init()
+//                .setContent("我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容" +
+//                        "我是内容我是内容我是内容我是内容我是内容我是内容")
+//                .setWidth(300)
+//                .setHeight(450)
+//                .setOutCancel(false)
+//                .show();
+        XAlertDialog.init().setTitle("警告对话框框")
+                .setContent("我是警告对话框的内容")
+                .requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
 
+        final XLoadingDialog loadingDialog = XLoadingDialog.init().setContent("请稍等").requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
 
+        XConfirmDialog.init().setTitle("确认对话框")
+                .setContent("我是确认对话框的内容")
+
+                .requestShow(XDialogManager.getInstance(), getSupportFragmentManager());
+
+        new Handler(getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismiss();
+            }
+        }, 1000 * 10);
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {

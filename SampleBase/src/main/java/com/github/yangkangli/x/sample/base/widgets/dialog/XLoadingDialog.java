@@ -1,11 +1,10 @@
-package com.github.yangkangli.x.mvvm.widgets.dialog;
+package com.github.yangkangli.x.sample.base.widgets.dialog;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.github.yangkangli.x.mvvm.R;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 
@@ -35,5 +34,16 @@ public class XLoadingDialog extends XBaseDialog {
     @Override
     public void convertView(ViewHolder holder, XBaseDialog dialog) {
         holder.setText(R.id.tv_content, content);
+    }
+
+    /**
+     * 请求显示（使用XDialogManager管理）
+     *
+     * @param manager
+     * @param fm
+     */
+    public XLoadingDialog requestShow(XDialogManager manager, FragmentManager fm) {
+        manager.requestShow(this, fm);
+        return this;
     }
 }

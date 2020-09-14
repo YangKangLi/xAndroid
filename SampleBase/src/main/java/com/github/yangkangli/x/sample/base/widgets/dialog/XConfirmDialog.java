@@ -1,12 +1,12 @@
-package com.github.yangkangli.x.mvvm.widgets.dialog;
+package com.github.yangkangli.x.sample.base.widgets.dialog;
 
-import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.github.yangkangli.x.mvvm.R;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.ViewHolder;
 import com.github.yangkangli.x.mvvm.widgets.dialog.core.XBaseDialog;
 
@@ -63,6 +63,16 @@ public class XConfirmDialog extends XBaseDialog {
      * 设置确认按钮
      *
      * @param positiveText
+     * @return
+     */
+    public XConfirmDialog setPositive(String positiveText) {
+        return setPositive(positiveText, null);
+    }
+
+    /**
+     * 设置确认按钮
+     *
+     * @param positiveText
      * @param onClickListener
      * @return
      */
@@ -70,6 +80,16 @@ public class XConfirmDialog extends XBaseDialog {
         this.positiveText = positiveText;
         this.positiveListener = onClickListener;
         return this;
+    }
+
+    /**
+     * 设置取消按钮
+     *
+     * @param negativeText
+     * @return
+     */
+    public XConfirmDialog setNegative(String negativeText) {
+        return setNegative(negativeText, null);
     }
 
     /**
@@ -114,5 +134,16 @@ public class XConfirmDialog extends XBaseDialog {
                 }
             }
         });
+    }
+
+    /**
+     * 请求显示（使用XDialogManager管理）
+     *
+     * @param manager
+     * @param fm
+     */
+    public XConfirmDialog requestShow(XDialogManager manager, FragmentManager fm) {
+        manager.requestShow(this, fm);
+        return this;
     }
 }

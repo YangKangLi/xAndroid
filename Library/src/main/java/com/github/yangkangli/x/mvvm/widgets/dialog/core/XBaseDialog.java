@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.github.yangkangli.x.mvvm.R;
 import com.github.yangkangli.x.mvvm.utils.ContextUtils;
 import com.github.yangkangli.x.mvvm.utils.UIUtils;
+import com.github.yangkangli.x.mvvm.widgets.dialog.XDialogManager;
 
 import me.jessyan.autosize.internal.CustomAdapt;
 
@@ -41,6 +42,8 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
 
     @LayoutRes
     protected int layoutId;
+
+    private FragmentManager fm;
 
 
     @Override
@@ -118,12 +121,8 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Adam", "XBaseDialog -> onStart");
-
         // 在这里初始化参数（得到Dialog的Window对象）
-
         Window window = getDialog().getWindow();
-
         if (window != null) {
             WindowManager.LayoutParams lp = window.getAttributes();
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -183,17 +182,22 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
     /**
      * 显示对话框
      *
-     * @param manager
      * @return
      */
-    public XBaseDialog show(FragmentManager manager) {
-        FragmentTransaction ft = manager.beginTransaction();
+    public XBaseDialog show(FragmentManager fm) {
+        FragmentTransaction ft = fm.beginTransaction();
         if (this.isAdded()) {
             ft.remove(this).commit();
         }
         ft.add(this, String.valueOf(System.currentTimeMillis()));
         ft.commitAllowingStateLoss();
         return this;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        XDialogManager.getInstance().dismissDialog(getFragmentManager());
     }
 
     @Override
