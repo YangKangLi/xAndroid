@@ -43,8 +43,6 @@ public abstract class XBaseDialog extends DialogFragment implements CustomAdapt 
     @LayoutRes
     protected int layoutId;
 
-    private FragmentManager fm;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
